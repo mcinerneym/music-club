@@ -1,0 +1,55 @@
+package com.github.mcinerneym.mapper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.github.mcinerneym.model.Album;
+import com.github.mcinerneym.model.AlbumDto;
+
+public final class AlbumMapper {
+
+    private AlbumMapper(){}
+    
+    public static Album toEntity(AlbumDto albumDto) {
+        Album album = new Album();
+
+        String genres = String.join(",", albumDto.getGenres());
+        java.sql.Date albumDate = new java.sql.Date(albumDto.getReleaseDate().getTime());
+        album.setName(albumDto.getName());
+        album.setArtist(albumDto.getArtist());
+        album.setGenres(genres);
+        album.setReleaseDate(albumDate);
+
+        return album;
+    }
+
+    public static List<Album> toEntities(List<AlbumDto> albumDtoList) {
+        List<Album> albumList = new ArrayList<>();
+        for (AlbumDto albumDto : albumDtoList) {
+            albumList.add(toEntity(albumDto));
+        }
+        return albumList;
+    }
+
+    public static AlbumDto fromEntity(Album album) {
+        AlbumDto albumDto = new AlbumDto();
+        String albumGenres = album.getGenres();
+        List<String> albumDtoGenres = new ArrayList<>();
+        if (albumGenres != null && !albumGenres.isBlank()){ 
+            albumDtoGenres = List.of(album.getGenres().split(","));
+        }
+        albumDto.setName(album.getName());
+        albumDto.setArtist(album.getArtist());
+        albumDto.setGenres(albumDtoGenres);
+        albumDto.setReleaseDate(album.getReleaseDate());
+        return albumDto;
+    }
+
+    public static List<AlbumDto> fromEntities(List<Album> albumList) {
+        List<AlbumDto> albumDtoList = new ArrayList<>();
+        for (Album album : albumList) {
+            albumDtoList.add(fromEntity(album));
+        }
+        return albumDtoList;
+    }
+}
