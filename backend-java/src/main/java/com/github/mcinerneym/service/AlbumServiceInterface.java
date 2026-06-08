@@ -6,4 +6,6 @@ import com.github.mcinerneym.model.AlbumDto;
 
 public interface AlbumServiceInterface {
     public List<AlbumDto> getAlbums();
+
+    public AlbumDto addAlbum(AlbumDto albumDto);
 }

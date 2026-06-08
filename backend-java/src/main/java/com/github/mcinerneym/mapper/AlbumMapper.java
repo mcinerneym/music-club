@@ -11,10 +11,19 @@ public final class AlbumMapper {
     private AlbumMapper(){}
     
     public static Album toEntity(AlbumDto albumDto) {
+        Album album = newEntity(albumDto);
+        album.setId(albumDto.getId());
+        return album;
+    }
+
+    public static Album newEntity(AlbumDto albumDto) {
         Album album = new Album();
 
         String genres = String.join(",", albumDto.getGenres());
-        java.sql.Date albumDate = new java.sql.Date(albumDto.getReleaseDate().getTime());
+        java.sql.Date albumDate = null;
+        if (albumDto.getReleaseDate() != null) {
+            albumDate = new java.sql.Date(albumDto.getReleaseDate().getTime());
+        }
         album.setName(albumDto.getName());
         album.setArtist(albumDto.getArtist());
         album.setGenres(genres);
@@ -38,6 +47,7 @@ public final class AlbumMapper {
         if (albumGenres != null && !albumGenres.isBlank()){ 
             albumDtoGenres = List.of(album.getGenres().split(","));
         }
+        albumDto.setId(album.getId());
         albumDto.setName(album.getName());
         albumDto.setArtist(album.getArtist());
         albumDto.setGenres(albumDtoGenres);
