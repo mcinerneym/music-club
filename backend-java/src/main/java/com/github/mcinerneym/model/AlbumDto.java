@@ -3,6 +3,8 @@ package com.github.mcinerneym.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.annotation.Nonnull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,5 +22,6 @@ public class AlbumDto {
     @Nonnull
     private String artist;
     private List<String> genres;
+    @JsonProperty("release_date")
     private LocalDate releaseDate;
 }

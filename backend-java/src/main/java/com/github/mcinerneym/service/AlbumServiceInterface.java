@@ -8,4 +8,6 @@ public interface AlbumServiceInterface {
     public List<AlbumDto> getAlbums();
 
     public AlbumDto addAlbum(AlbumDto albumDto);
+
+    public AlbumDto updateAlbum(AlbumDto albumDto);
 }

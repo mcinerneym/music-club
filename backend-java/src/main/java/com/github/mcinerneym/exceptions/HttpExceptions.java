@@ -17,6 +17,12 @@ public class HttpExceptions {
             .body(new ErrorResponse(HttpStatus.CONFLICT.value(), ex.getMessage()));
     }
 
+    @ExceptionHandler(AlbumNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleAlbumNotFound(AlbumNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage()));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericError(Exception ex) {
         log.atError().log(ex.getMessage());

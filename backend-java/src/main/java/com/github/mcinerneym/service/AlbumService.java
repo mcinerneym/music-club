@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.github.mcinerneym.model.Album;
 import com.github.mcinerneym.model.AlbumDto;
 import com.github.mcinerneym.repository.AlbumRepository;
+import com.github.mcinerneym.exceptions.AlbumNotFoundException;
 import com.github.mcinerneym.exceptions.DuplicateAlbumException;
 import com.github.mcinerneym.mapper.AlbumMapper;
 
@@ -32,7 +33,7 @@ public class AlbumService implements AlbumServiceInterface {
         String albumArtist = albumDto.getArtist();
         boolean albumExists = albumRepository.existsByNameIgnoreCaseAndArtistIgnoreCase(albumName,albumArtist);
         if (albumExists) {
-            log.atError().log("Album '%s' by '%s' already exists", albumName, albumArtist);
+            log.atError().log("Album '{}' by '{}' already exists", albumName, albumArtist);
             throw new DuplicateAlbumException("Album '%s' by '%s' already exists".formatted(albumName, albumArtist));
         }
         Album album = AlbumMapper.newEntity(albumDto);
@@ -42,6 +43,15 @@ public class AlbumService implements AlbumServiceInterface {
         return AlbumMapper.fromEntity(entity);
     }
 
-
-    
+    public AlbumDto updateAlbum(@NonNull AlbumDto albumDto) {
+        boolean albumExists = albumRepository.existsById(albumDto.getId());
+        if (!albumExists) {
+            log.atError().log("Album with Id '{}' does not exist.", albumDto.getId());
+            throw new AlbumNotFoundException("Album with Id '{}' does not exist.".formatted(albumDto.getId()));
+        }
+        Album album = AlbumMapper.toEntity(albumDto);
+        Album entity = albumRepository.save(album);
+        
+        return AlbumMapper.fromEntity(entity);
+    }
 }
