@@ -13,5 +13,7 @@ public interface AlbumControllerInterface {
     public ResponseEntity<AlbumDto> addAlbum(AlbumDto album);
 
     public ResponseEntity<AlbumDto> updateAlbum(AlbumDto album, Long albumId);
+
+    public ResponseEntity<AlbumDto> getAlbum(Long albumId);
     
 }

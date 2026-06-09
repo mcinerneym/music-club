@@ -46,12 +46,22 @@ public class AlbumService implements AlbumServiceInterface {
     public AlbumDto updateAlbum(@NonNull AlbumDto albumDto) {
         boolean albumExists = albumRepository.existsById(albumDto.getId());
         if (!albumExists) {
-            log.atError().log("Album with Id '{}' does not exist.", albumDto.getId());
-            throw new AlbumNotFoundException("Album with Id '{}' does not exist.".formatted(albumDto.getId()));
+            log.atError().log("Attempted to update: Album with Id '{}' does not exist.", albumDto.getId());
+            throw new AlbumNotFoundException("Album with Id '%d' does not exist.".formatted(albumDto.getId()));
         }
         Album album = AlbumMapper.toEntity(albumDto);
         Album entity = albumRepository.save(album);
         
         return AlbumMapper.fromEntity(entity);
+    }
+
+    public AlbumDto getAlbum(@NonNull Long albumId) {
+        Album album = albumRepository.findById(albumId).orElseGet(() -> null);
+        if (album == null) {
+            log.atError().log("Attempted to get: Album with Id '{}' does not exist.", albumId);
+            throw new AlbumNotFoundException("Album with Id '%d' does not exist.".formatted(albumId));
+        }
+
+        return AlbumMapper.fromEntity(album);
     }
 }

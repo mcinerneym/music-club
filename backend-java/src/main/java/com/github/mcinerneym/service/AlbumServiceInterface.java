@@ -10,4 +10,6 @@ public interface AlbumServiceInterface {
     public AlbumDto addAlbum(AlbumDto albumDto);
 
     public AlbumDto updateAlbum(AlbumDto albumDto);
+
+    public AlbumDto getAlbum(Long albumId);
 }

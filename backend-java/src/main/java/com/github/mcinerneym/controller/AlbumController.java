@@ -47,7 +47,14 @@ public class AlbumController implements AlbumControllerInterface {
         log.atDebug().log("Updating album {}", albumId);
         album.setId(albumId);
         AlbumDto updatedAlbum = albumService.updateAlbum(album);
-        return ResponseEntity.status(HttpStatus.OK).body(updatedAlbum);
+        return ResponseEntity.ok(updatedAlbum);
+    }
+
+    @GetMapping("/{albumId}")
+    public ResponseEntity<AlbumDto> getAlbum(@PathVariable Long albumId) {
+        log.atDebug().log("Getting Album with ID {}", albumId);
+        AlbumDto album = albumService.getAlbum(albumId);
+        return ResponseEntity.ok(album);
     }
 
 }
