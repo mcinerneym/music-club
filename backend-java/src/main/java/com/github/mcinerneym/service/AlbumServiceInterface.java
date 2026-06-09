@@ -12,4 +12,6 @@ public interface AlbumServiceInterface {
     public AlbumDto updateAlbum(AlbumDto albumDto);
 
     public AlbumDto getAlbum(Long albumId);
+
+    public List<AlbumDto> getAlbumsByArtist(String artist);
 }

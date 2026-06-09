@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -29,7 +30,11 @@ public class AlbumController implements AlbumControllerInterface {
     private final AlbumServiceInterface albumService;
     
     @GetMapping("")
-    public ResponseEntity<List<AlbumDto>> getAlbums() {
+    public ResponseEntity<List<AlbumDto>> getAlbums(@RequestParam(required = false) String artist) {
+        if (artist != null) {
+            log.atDebug().log("Searching for all Albums for artist {}", artist);
+            return ResponseEntity.ok(albumService.getAlbumsByArtist(artist));
+        }
         log.atDebug().log("Getting All Albums from the DB");
         List<AlbumDto> albums = albumService.getAlbums();
         return ResponseEntity.ok(albums);
@@ -37,7 +42,7 @@ public class AlbumController implements AlbumControllerInterface {
 
     @PostMapping("")
     public ResponseEntity<AlbumDto> addAlbum(@RequestBody AlbumDto album) {
-        log.atDebug().log("Adding album {} }by {}", album.getName(), album.getArtist());
+        log.atDebug().log("Adding album {} by {}", album.getName(), album.getArtist());
         AlbumDto savedAlbum = albumService.addAlbum(album);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedAlbum);
     }
@@ -56,5 +61,4 @@ public class AlbumController implements AlbumControllerInterface {
         AlbumDto album = albumService.getAlbum(albumId);
         return ResponseEntity.ok(album);
     }
-
 }

@@ -34,11 +34,9 @@ public final class AlbumMapper {
     }
 
     public static List<Album> toEntities(List<AlbumDto> albumDtoList) {
-        List<Album> albumList = new ArrayList<>();
-        for (AlbumDto albumDto : albumDtoList) {
-            albumList.add(toEntity(albumDto));
-        }
-        return albumList;
+        return albumDtoList.stream()
+                .map(albumDto -> toEntity(albumDto))
+                .toList();
     }
 
     public static AlbumDto fromEntity(Album album) {
@@ -61,10 +59,8 @@ public final class AlbumMapper {
     }
 
     public static List<AlbumDto> fromEntities(List<Album> albumList) {
-        List<AlbumDto> albumDtoList = new ArrayList<>();
-        for (Album album : albumList) {
-            albumDtoList.add(fromEntity(album));
-        }
-        return albumDtoList;
+        return albumList.stream()
+                .map(album -> fromEntity(album))
+                .toList();
     }
 }

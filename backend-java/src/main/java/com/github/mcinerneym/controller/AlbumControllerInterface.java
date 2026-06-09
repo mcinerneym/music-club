@@ -8,12 +8,11 @@ import com.github.mcinerneym.model.AlbumDto;
 
 public interface AlbumControllerInterface {
 
-    public ResponseEntity<List<AlbumDto>> getAlbums();
+    public ResponseEntity<List<AlbumDto>> getAlbums(String artist);
 
     public ResponseEntity<AlbumDto> addAlbum(AlbumDto album);
 
     public ResponseEntity<AlbumDto> updateAlbum(AlbumDto album, Long albumId);
 
-    public ResponseEntity<AlbumDto> getAlbum(Long albumId);
-    
+    public ResponseEntity<AlbumDto> getAlbum(Long albumId);    
 }
