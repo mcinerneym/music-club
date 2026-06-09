@@ -1,5 +1,6 @@
 package com.github.mcinerneym.mapper;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public final class AlbumMapper {
         String genres = String.join(",", albumDto.getGenres());
         java.sql.Date albumDate = null;
         if (albumDto.getReleaseDate() != null) {
-            albumDate = new java.sql.Date(albumDto.getReleaseDate().getTime());
+            albumDate = java.sql.Date.valueOf(albumDto.getReleaseDate());
         }
         album.setName(albumDto.getName());
         album.setArtist(albumDto.getArtist());
@@ -47,11 +48,15 @@ public final class AlbumMapper {
         if (albumGenres != null && !albumGenres.isBlank()){ 
             albumDtoGenres = List.of(album.getGenres().split(","));
         }
+        LocalDate albumDate = null;
+        if (album.getReleaseDate() != null){
+            albumDate = album.getReleaseDate().toLocalDate();
+        }
         albumDto.setId(album.getId());
         albumDto.setName(album.getName());
         albumDto.setArtist(album.getArtist());
         albumDto.setGenres(albumDtoGenres);
-        albumDto.setReleaseDate(album.getReleaseDate());
+        albumDto.setReleaseDate(albumDate);
         return albumDto;
     }
 

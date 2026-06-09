@@ -1,6 +1,6 @@
 package com.github.mcinerneym.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.annotation.Nonnull;
@@ -20,5 +20,5 @@ public class AlbumDto {
     @Nonnull
     private String artist;
     private List<String> genres;
-    private Date releaseDate;
+    private LocalDate releaseDate;
 }
