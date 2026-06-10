@@ -1,0 +1,1 @@
+CREATE INDEX album_artist ON album(artist);

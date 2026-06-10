@@ -1,0 +1,20 @@
+package com.github.mcinerneym.controller;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+
+import com.github.mcinerneym.model.AlbumDto;
+
+public interface AlbumControllerInterface {
+
+    public ResponseEntity<List<AlbumDto>> getAlbums(String artist);
+
+    public ResponseEntity<AlbumDto> addAlbum(AlbumDto album);
+
+    public ResponseEntity<AlbumDto> updateAlbum(AlbumDto album, Long albumId);
+
+    public ResponseEntity<AlbumDto> getAlbum(Long albumId);   
+    
+    public ResponseEntity<Void> deleteAlbum(Long albumId);
+}

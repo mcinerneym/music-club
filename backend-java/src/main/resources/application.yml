@@ -1,0 +1,14 @@
+spring:
+  mvc:
+    servlet:
+      path: "/api/v1"
+  application:
+    name: music-club
+  datasource:
+    name: ${DB_NAME}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: none
