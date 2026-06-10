@@ -14,4 +14,6 @@ public interface AlbumServiceInterface {
     public AlbumDto getAlbum(Long albumId);
 
     public List<AlbumDto> getAlbumsByArtist(String artist);
+
+    public void deleteAlbum(Long albumId);
 }

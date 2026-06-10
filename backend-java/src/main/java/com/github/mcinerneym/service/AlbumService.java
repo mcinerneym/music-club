@@ -65,12 +65,16 @@ public class AlbumService implements AlbumServiceInterface {
         return AlbumMapper.fromEntity(album);
     }
 
-    public List<AlbumDto> getAlbumsByArtist(String artist) {
+    public List<AlbumDto> getAlbumsByArtist(@NonNull String artist) {
         List<Album> albums = albumRepository.findByArtistIgnoreCase(artist);
         if (albums == null || albums.isEmpty()) {
             return List.of();
         }
         return AlbumMapper.fromEntities(albums);
 
+    }
+
+    public void deleteAlbum(@NonNull Long albumId) {
+        albumRepository.deleteById(albumId);
     }
 }

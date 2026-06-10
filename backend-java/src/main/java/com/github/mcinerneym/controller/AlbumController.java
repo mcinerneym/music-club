@@ -12,6 +12,7 @@ import com.github.mcinerneym.service.AlbumServiceInterface;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,5 +61,13 @@ public class AlbumController implements AlbumControllerInterface {
         log.atDebug().log("Getting Album with ID {}", albumId);
         AlbumDto album = albumService.getAlbum(albumId);
         return ResponseEntity.ok(album);
+    }
+
+    @DeleteMapping("/{albumId}")
+    public ResponseEntity<Void> deleteAlbum(@PathVariable Long albumId) {
+        log.atDebug().log("Deleting Album with ID {}", albumId);
+        albumService.deleteAlbum(albumId);
+        ResponseEntity<Void> response = ResponseEntity.noContent().build();
+        return response;
     }
 }
