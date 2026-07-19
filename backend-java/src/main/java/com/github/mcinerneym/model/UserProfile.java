@@ -1,15 +1,18 @@
 package com.github.mcinerneym.model;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+@Entity
+@Table(name = "user-profile")
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserDto {
+public class UserProfile {
+
     private String email;
-    private String password;
+    
 }
