@@ -10,7 +10,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserProfileDto {
-
+    //TODO: Need to figure out the id from the token
     private String email;
+    private String displayName;
+    private String avatarLink;
+    private String description;
     
 }
